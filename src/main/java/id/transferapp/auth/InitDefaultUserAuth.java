@@ -60,9 +60,9 @@ public class InitDefaultUserAuth {
 		userCS.setPassword(new BCryptPasswordEncoder().encode("cs123"));
 		userCS.setRole(roleCustomerService);
 		
-//		this.userRepo.save(userAdmin);
-//		this.userRepo.save(userOperator);
-//		this.userRepo.save(userCS);
+		this.userRepo.save(userAdmin);
+		this.userRepo.save(userOperator);
+		this.userRepo.save(userCS);
 	}
 
 }
