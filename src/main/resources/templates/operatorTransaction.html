@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+		h3{
+		height:50px;
+		top:0;
+		width: 998px;
+		font-family: monospace;
+		text-align: center;
+		position: fixed;
+		margin-left: -499px;
+		left: 50%;
+	}
+	
+</style>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<title>Transfer Dana</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+<nav class="navbar fixed-top navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="container">
+  <h3>Transfer Dana</h3>
+</div>
+  <div class="collapse navbar-collapse" id="navbarToggler">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/operator">Home</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/operator/transaction">Transaction <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript: document.logoutForm.submit()">Log Out</a>
+        <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+        	<input hidden type="submit" value="Sign Out"/>
+        </form>
+      </li>
+    </ul>
+  </div>
+</nav>
+</div>
+
+<div class="modal fade" id="pengirimModal" tabindex="-1" role="dialog" aria-labelledby="pengirimModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="pengirimModalLabel">Atas Nama Pengirim</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <div class="container fluid" >
+         <div class="row">
+         <div class="col-md-10 mx-auto">
+         <form>
+			<div class="form-group row" >
+			<div class="col-sm-6">
+					<label class="control-label" style="padding-top: 50px;">No Rekening : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="noRekPengirim" style="padding-top: 50px;"></label>
+				</div>
+				</div>
+				<div class="form-group row">
+				<div class="col-sm-6">
+					<label class="control-label">Atas Nama : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="atasNamaPengirim"  ></label>
+				</div>
+				</div>
+				<div class="form-group row" >
+			<div class="col-sm-6">
+					<label class="control-label" >No Identitas : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="noIdentitasPengirim" ></label>
+				</div>
+				</div>
+				<div class="form-group row">
+				<div class="col-sm-6">
+					<label class="control-label">Email : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="emailPengirim"  ></label>
+				</div>
+				</div>
+				<div class="form-group row">
+				<div class="col-sm-6">
+					<label class="control-label">Contact : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="contactPengirim"  ></label>
+				</div>
+				</div>
+			</form>
+				</div>
+				</div>
+			</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="penerimaModal" tabindex="-1" role="dialog" aria-labelledby="penerimaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="penerimaModalLabel">Atas Nama Penerima</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <div class="container fluid" >
+         <div class="row">
+         <div class="col-md-10 mx-auto">
+         <form>
+			<div class="form-group row" >
+			<div class="col-sm-6">
+					<label class="control-label" style="padding-top: 50px;">No Rekening : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="noRekPenerima" style="padding-top: 50px;"></label>
+				</div>
+				</div>
+				<div class="form-group row">
+				<div class="col-sm-6">
+					<label class="control-label">Atas Nama : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="atasNamaPenerima"  ></label>
+				</div>
+				</div>
+				<div class="form-group row" >
+			<div class="col-sm-6">
+					<label class="control-label" >No Identitas : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="noIdentitasPenerima" ></label>
+				</div>
+				</div>
+				<div class="form-group row">
+				<div class="col-sm-6">
+					<label class="control-label">Email : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="emailPenerima"  ></label>
+				</div>
+				</div>
+				<div class="form-group row">
+				<div class="col-sm-6">
+					<label class="control-label">Contact : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="contactPenerima"  ></label>
+				</div>
+				</div>
+			</form>
+				</div>
+				</div>
+			</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid" style="padding-top: 100px">
+	<div id="data-collection">
+		<div id="add-transfer">
+			<form method="post" th:action="@{/operator/transfer/save}" th:object="${transferForm}" class="form-horizontal">
+				<div class="form-group">
+				<div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+				<div class="alert alert-danger" role="alert" th:text="${fail}" th:if="${fail}"></div>
+				<div class="input-group mb-3">
+					<label class="control-label col-sm-2" for="errorrekPengirim">No Rekening Pengirim : </label>
+					<div class="input-group-append mb3">
+						<input id="rekPengirim" type="text" th:field="*{rekPengirim.noRek}" class="form-control" style="width: 500px">
+						<div class="form-control-append" style="display: inline-block; padding-left: 5px;">
+							<a href="#pengirimModal" data-toggle="modal" data-target="#pengirimModal" >Check Pengirim</a>
+						</div>
+						<span th:if="${#fields.hasErrors('rekPengirim.noRek')}" class="error text-danger" th:errors="*{rekPengirim.noRek}"></span>	
+					</div>
+				</div>
+				</div>
+				<div class="input-group mb-3">
+					<label class="control-label col-sm-2">No Rekening Penerima : </label>
+					<div class="input-group-append mb3">
+						<input id="rekPenerima" type="text" th:field="*{rekPenerima.noRek}" class="form-control" style="width: 500px">
+					<div class="form-control-append" style="display: inline-block;padding-left: 5px;">
+							<a href="#penerimaModal" data-toggle="modal" data-target="#penerimaModal" >Check Penerima</a>
+						</div>
+						<span th:if="${#fields.hasErrors('rekPenerima.noRek')}" class="error text-danger" th:errors="*{rekPenerima.noRek}"></span>
+					</div>
+				</div>
+				<div class="input-group mb-3">
+					<label class="control-label col-sm-2">Jumlah Dana : </label>
+					<div class="input-group-append mb-3">
+						<input type="text" th:field="*{amount}" class="form-control" style="width: 500px">
+						<span th:if="${#fields.hasErrors('amount')}" class="error text-danger" th:errors="*{amount}"></span>
+					</div>
+				</div>
+				<div class="col-sm-offset-2">
+					<div class="row col-sm-6">
+					<div class="col-sm-4">
+					</div>
+					<div class="col-sm-4">
+						<input type="Submit" class="btn btn-primary" value="Kirim Dana"/><br><br><br>
+					</div>
+					</div>
+				</div>
+				<span th:if="${Success}" th:text="${Success}"></span>
+			</form>
+		</div>
+		<div class="col-sm-offset-2">
+		<table id="mytable" class="table table-bordered">
+			<thead>
+				<td>Rekening Pengirim</td>
+				<td>Rekening Penerima</td>
+				<td>Amount</td>
+				<td>Bank Asal</td>
+				<td>Bank Tujuan</td>
+				<td>Fee</td>
+			</thead>
+			<tbody th:each="trf : ${transfer}">
+				<tr>
+					<td th:text="${trf.rekPengirim.noRek}"></td>
+					<td th:text="${trf.rekPenerima.noRek}"></td>
+					<td th:text="${trf.amount}"></td>
+					<td th:text="${trf.rekPengirim.bank.bankname}"></td>
+					<td th:text="${trf.rekPenerima.bank.bankname}"></td>
+					<td th:text="${trf.fee}"></td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+	
+	</div>
+</body>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.13.1/r-2.4.0/sp-2.1.0/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.13.1/r-2.4.0/sp-2.1.0/datatables.min.js"></script>
+<script>
+$(document).ready(function(){
+	$('#mytable').DataTable();
+})
+</script>
+<script>
+	$('#pengirimModal').on('show.bs.modal', function(event){
+		var noRek = $('#rekPengirim').val();
+		var modal = $(this)
+		if(noRek==null){
+			$("#penerimaModalLabel").empty().append("Rekening Pengirim Tidak Ada");
+			$("#noRekPengirim").empty();
+			$("#atasNamaPengirim").empty();
+			$("#noIdentitasPengirim").empty();
+			$("#emailPengirim").empty();
+			$("#contactPengirim").empty();
+			$("#pengirimModal").modal("show");
+		}
+		else{
+			$.ajax({
+				type : 'POST',
+				url : '/operator/transfer/checkRekening/' + noRek ,
+				data : {'noRek' : noRek},
+				success : function(list){
+					var norek ="";
+					var name ="";
+					var noId ="";
+					var email="";
+					var contact = "";
+					
+					if(list!=null){
+						for(i in list){
+							norek = list[0];
+							name = list[1];
+							noId = list[2];
+							email = list[3];
+							contact = list[4];
+						} 
+						$("#noRekPengirim").empty().append(norek);
+						$("#atasNamaPengirim").empty().append(name);
+						$("#noIdentitasPengirim").empty().append(noId);
+						$("#emailPengirim").empty().append(email);
+						$("#contactPengirim").empty().append(contact);
+						$("#pengirimModal").modal("show");
+					}
+					
+				}
+			});
+		}
+	})
+</script>
+
+<script>
+	$('#penerimaModal').on('show.bs.modal', function(event){
+		var noRek = $('#rekPenerima').val();
+		var modal = $(this)
+		if(noRek==null){
+			$("#penerimaModalLabel").empty().append("Rekening Penerima Tidak Ada");
+			$("#noRekPenerima").empty();
+			$("#atasNamaPenerima").empty();
+			$("#noIdentitasPenerima").empty();
+			$("#emailPenerima").empty();
+			$("#contactPenerima").empty();
+			$("#penerimaModal").modal("show");
+		}
+		else{
+			$.ajax({
+				type : 'POST',
+				url : '/operator/transfer/checkRekening/' + noRek ,
+				data : {'noRek' : noRek},
+				success : function(list){
+					var norekPenerima ="";
+					var namePenerima ="";
+					var noIdPenerima ="";
+					var emailPenerima="";
+					var contactPenerima = "";
+					
+					if(list!=null){
+						for(i in list){
+							norekPenerima = list[0];
+							namePenerima = list[1];
+							noIdPenerima = list[2];
+							emailPenerima = list[3];
+							contactPenerima = list[4];
+						}
+						$("#noRekPenerima").empty().append(norekPenerima);
+						$("#atasNamaPenerima").empty().append(namePenerima);
+						$("#noIdentitasPenerima").empty().append(noIdPenerima);
+						$("#emailPenerima").empty().append(emailPenerima);
+						$("#contactPenerima").empty().append(contactPenerima);
+						$("#penerimaModal").modal("show");
+					}
+				
+			}
+		});
+	}
+	})
+</script>
+</html>
