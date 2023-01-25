@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <style>
@@ -15,29 +15,21 @@
         }
     </style>
     <meta charset="ISO-8859-1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Bank Provider</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <div class="container-fluid">
         <nav class="navbar fixed-top navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
-                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="container">
-                <h3>Add Ticket</h3>
+                <h3>Add Paket Data</h3>
             </div>
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -47,16 +39,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/bank">Bank Provider</a>
                     </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/admin/tiket">Add Ticket <span class="sr-only">(current)</span></a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/tiket">Add Ticket</a>
                         </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/paketdata">Add Paket Data</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/admin/paketdata">Add Paket Data <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="javascript: document.logoutForm.submit()">Log Out</a>
                         <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
-                            <input hidden type="submit" value="Sign Out" />
+                            <input hidden type="submit" value="Sign Out">
                         </form>
                     </li>
                 </ul>
@@ -66,8 +58,7 @@
     <div class="container-fluid" style="padding-top: 100px">
         <div id="data-collection">
             <div id="add-employee">
-                <form method="post" th:action="@{/admin/tiket}" th:object="${addTiket}"
-                    class="form-horizontal">
+                <form method="post" th:action="@{/admin/paketdata}" th:object="${paketdata}" class="form-horizontal">
                     <div class="container-fluid">
                         <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
                         <div class="alert alert-danger" role="alert" th:text="${fail}" th:if="${fail}"></div>
@@ -75,23 +66,28 @@
                     <div class="input-group mb-3">
                         <div class="container">
                             <div class="input-group-append mb-3" style="box-sizing: content-box;height: 30px">
-                                <label class="control-label col-sm-2" for="errorBankName">Tiket : </label>
-                                <input type="text" th:field="*{name}" class="form-control" style="width: 500px;" required>
+                                <label class="control-label col-sm-2">Provider : </label>
+                                <input type="text" th:field="*{providerName}" class="form-control" style="width: 500px;" required>
                                 <div class="col-sm-10" style="padding-top: -100px">
-                                    <span th:if="${#fields.hasErrors('name')}" class="error text-danger"
-                                        th:errors="*{name}"></span>
+                                    <span th:if="${#fields.hasErrors('providerName')}" class="error text-danger" th:errors="*{providerName}"></span>
                                 </div>
                             </div>
                             <div class="input-group-append mb-3" style="box-sizing: content-box;height: 30px">
-                                <label class="control-label col-sm-2" for="errorPrice">Price : </label>
+                                <label class="control-label col-sm-2">Packet Name : </label>
+                                <input type="text" th:field="*{name}" class="form-control" style="width: 500px;" required>
+                                <div class="col-sm-10" style="padding-top: -100px">
+                                    <span th:if="${#fields.hasErrors('name')}" class="error text-danger" th:errors="*{name}"></span>
+                                </div>
+                            </div>
+                            <div class="input-group-append mb-3" style="box-sizing: content-box;height: 30px">
+                                <label class="control-label col-sm-2">Price : </label>
                                 <input type="number" th:field="*{price}" class="form-control" style="width: 500px;" required>
                                 <div class="col-sm-10" style="padding-top: -100px">
-                                    <span th:if="${#fields.hasErrors('price')}" class="error text-danger"
-                                        th:errors="*{price}"></span>
+                                    <span th:if="${#fields.hasErrors('price')}" class="error text-danger" th:errors="*{price}"></span>
                                 </div>
                             </div>
                             <div class="form-control-append" style="display: inline-block;">
-                                <input type="Submit" class="btn btn-primary" value="Save" /><br><br><br>
+                                <input type="Submit" class="btn btn-primary" value="Save"><br><br><br>
                             </div>
                         </div>
                     </div>
@@ -103,15 +99,18 @@
             <div class="col-sm-offset-2">
                 <table id="mytable" class="table table-bordered">
                     <thead>
-                        <td>Tiket</td>
+                        <td>Provider</td>
+                        <td>Packet Name</td>
+                        <td>Price</td>
                         <td>Action</td>
                     </thead>
-                    <tbody th:each="tiket : ${listTiket}">
+                    <tbody th:each="paket : ${listPaketData}">
                         <tr>
-                            <td th:text="${tiket.name}"></td>
-                            <td th:text="${tiket.price}"></td>
+                            <td th:text="${paket.providerName}"></td>
+                            <td th:text="${paket.name}"></td>
+                            <td th:text="${paket.price}"></td>
                             <td>
-                                <button class="btn btn-danger" th:onClick="deleteData('[[${tiket.id}]]')">Delete</button>
+                                <button class="btn btn-danger" th:onclick="deleteData('[[${paket.id}]]')">Delete</button>
                             </td>
 
                         </tr>
@@ -131,17 +130,15 @@
 	function deleteData(data) {
 		var conf = confirm("Are you sure ?")
 		if (conf) {
-			window.location = baseUrl + "tiket/delete?id=" + data;
+			window.location = baseUrl + "paketdata/delete?id=" + data;
 		}
 		return false;
 	}
 
 </script>
-<link rel="stylesheet" type="text/css"
-    href="https://cdn.datatables.net/v/bs4/dt-1.13.1/r-2.4.0/sp-2.1.0/datatables.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.13.1/r-2.4.0/sp-2.1.0/datatables.min.css">
 
-<script type="text/javascript"
-    src="https://cdn.datatables.net/v/bs4/dt-1.13.1/r-2.4.0/sp-2.1.0/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.13.1/r-2.4.0/sp-2.1.0/datatables.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#mytable').DataTable();

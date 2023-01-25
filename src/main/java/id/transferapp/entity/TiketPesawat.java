@@ -6,25 +6,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+
 
 @Entity
 @Table(name = "tiketpesawat")
 public class TiketPesawat {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotNull
-	@NotBlank
-	@NotEmpty
 	@Column(nullable = false, unique = true)
 	private String name;
-	@NotNull
-	@NotBlank
-	@NotEmpty
 	private double price;
 
 	public Long getId() {
