@@ -61,6 +61,31 @@
     <div class="container-fluid" style="padding-top: 100px">
         <div id="data-collection">
             <div id="add-employee">
+                
+                <form method="post" th:action="@{/admin/paketdata/provider}" th:object="${providercard}" class="form-horizontal">
+                    <div class="container-fluid">
+                        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+                        <div class="alert alert-danger" role="alert" th:text="${fail}" th:if="${fail}"></div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="container">
+                            <div class="input-group-append mb-3" style="box-sizing: content-box;height: 30px">
+                                <label class="control-label col-sm-2">Provider Name : </label>
+                                <input type="text" th:field="*{name}" class="form-control" style="width: 500px;" required>
+                                <div class="col-sm-10" style="padding-top: -100px">
+                                    <span th:if="${#fields.hasErrors('name')}" class="error text-danger"
+                                        th:errors="*{name}"></span>
+                                </div>
+                            </div>
+                            <div class="form-control-append" style="display: inline-block;">
+                                <input type="Submit" class="btn btn-primary" value="Save"><br><br><br>
+                            </div>
+                        </div>
+                    </div>
+                
+                </form>
+
+
                 <form method="post" th:action="@{/admin/paketdata}" th:object="${paketdata}" class="form-horizontal">
                     <div class="container-fluid">
                         <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
@@ -70,10 +95,11 @@
                         <div class="container">
                             <div class="input-group-append mb-3" style="box-sizing: content-box;height: 30px">
                                 <label class="control-label col-sm-2">Provider : </label>
-                                <input type="text" th:field="*{providerName}" class="form-control" style="width: 500px;" required>
-                                <div class="col-sm-10" style="padding-top: -100px">
-                                    <span th:if="${#fields.hasErrors('providerName')}" class="error text-danger" th:errors="*{providerName}"></span>
-                                </div>
+                                <select th:field="*{providerName}" class="form-select w-100 border border-1 rounded">
+                                    <th:block th:each="list : ${listProvider}">
+                                        <option th:value="${list.id}" th:text="${list.name}"></option>
+                                    </th:block>
+                                </select>
                             </div>
                             <div class="input-group-append mb-3" style="box-sizing: content-box;height: 30px">
                                 <label class="control-label col-sm-2">Packet Name : </label>
@@ -109,7 +135,7 @@
                     </thead>
                     <tbody th:each="paket : ${listPaketData}">
                         <tr>
-                            <td th:text="${paket.providerName}"></td>
+                            <td th:text="${paket.providerName.name}"></td>
                             <td th:text="${paket.name}"></td>
                             <td th:text="${paket.price}"></td>
                             <td>
