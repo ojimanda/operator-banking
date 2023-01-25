@@ -27,51 +27,130 @@
 </head>
 <body>
 
-	<nav class="navbar fixed-top navbar-light bg-info">
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation ">
-	  <span class="navbar-toggler-icon "></span>
-	  </button>
-	  <div class="container text-white">
-	  	<h3>Paket Data</h3>
-	  </div>
-	 	  <!-- navbar -->
-		  <div class="collapse navbar-collapse" id="navbarToggler">
-		    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-		     <!--  <li class="nav-item active">
-		        <a class="nav-link" href="/cs">Home <span class="sr-only">(current)</span></a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="/cs/rekening">Rekening</a>
-		      </li> -->
-		      <li class="nav-item">
-		        <a class="nav-link text-white" href="javascript: document.logoutForm.submit()">Log Out</a>
-		        <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
-		        	<input hidden type="submit" value="Sign Out"/>
-		        </form>
-		      </li>
-		    </ul>
-		  </div>
-	</nav>
+
+<nav class="navbar fixed-top navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="container-fluid">
+  <h3>Paket Data</h3>
+</div>
+  <div class="collapse navbar-collapse" id="navbarToggler">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/operator">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/operator/transfer">Transfer</a>
+      </li>
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+            Product
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item active" href="/operator/paketdata">Paket Data  <span class="sr-only">(current)</span></a></li>
+            <li><a class="dropdown-item" href="/operator/tiketpesawat">Tiket Pesawat</a></li>
+            <li><a class="dropdown-item" href="/operator/bayartagihan">Bayar Tagihan</a></li>
+          </ul>
+        </li>
+       <li class="nav-item">
+        <a class="nav-link" href="#">Commerce</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript: document.logoutForm.submit()">Log Out</a>
+        <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+        	<input hidden type="submit" value="Sign Out"/>
+        </form>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<div class="modal fade" id="invoicePaket" tabindex="-1" role="dialog" aria-labelledby="invoicePaketLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="invoicePaketTitle">Invoice Pembelian Paket</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <div class="container fluid" >
+         <div class="row">
+         <div class="col-md-10 mx-auto">
+         <form>
+			<div class="form-group row" >
+			<div class="col-sm-6">
+					<label class="control-label" style="padding-top: 50px;">Paket Provider : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="namaProvider" style="padding-top: 50px;"></label>
+				</div>
+				</div>
+				<div class="form-group row">
+				<div class="col-sm-6">
+					<label class="control-label">Jenis Paket : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="jenisPaket"  ></label>
+				</div>
+				</div>
+				<div class="form-group row" >
+			<div class="col-sm-6">
+					<label class="control-label" >Harga : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="hargaPaket" ></label>
+				</div>
+				</div>
+				<div class="form-group row">
+				<div class="col-sm-6">
+					<label class="control-label">No Rekening : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="noRekPembeli"  ></label>
+				</div>
+				</div>
+				<div class="form-group row">
+				<div class="col-sm-6">
+					<label class="control-label">No Telp : </label>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label" id="noTelp"  ></label>
+				</div>
+				</div>
+			</form>
+				</div>
+				</div>
+			</div>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="save">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 	
 	<!-- form pembelian -->
-	<form>
+	<form >
 	<div class="container">
 	<div class="row d-flex justify-content-center my-5 py-4">
 	<div class="col-10">
 	<div class="form-group">
       <label for="inputState">Provider</label>
-      <select id="inputState" class="form-control">
-        <option selected>Pilih Provider</option>
-        <option>Telkomsel</option>
-        <option>Indosat</option>
-        <option>XL</option>
-        <option>Smartfren</option>
-        <option>Tri</option>
+      <select id="providerOption" class="form-control">
+        <option th:each="pakets : ${paket}"
+        th:text="${pakets.providerName}"
+        th:value="${pakets.providerName}"></option>
       </select>
     </div>
 	<div class="form-group">
       <label for="inputState">Paket Data</label>
-      <select id="inputState" class="form-control">
+      <select id="paketOption" class="form-control">
         <option selected>Pilih Paket Data</option>
         <option>10 GB (1 Bulan)</option>
         <option>15 GB (1 Bulan)</option>
@@ -82,30 +161,67 @@
     </div>
     <div class="form-group">
       <label for="inputState">Harga</label>
-      <input type="text"class="form-control">
-<!--    <option>Rp. 25.000</option>
-        <option>Rp. 35.000</option>
-        <option>Rp. 45.000</option>
-        <option>Rp. 55.000</option>
-        <option>Rp. 65.000</option> -->
-      </select>
+      <input type="text" class="form-control" id="hargaText" disabled>
     </div>
-	<input type="Submit" class="btn btn-outline-success" value="Beli"/>
+    <div class="form-group">
+      <label for="inputState">No Rekening</label>
+      <input type="text" class="form-control" id="norek">
+    </div>
+    <div class="form-group">
+      <label for="inputState">No Telpon</label>
+      <input type="text" class="form-control" id="notelp">
+    </div>
+	<input type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#invoicePaket" id="submit" value="Beli"/>
 	</div>
 	</div>
 	</div>
 	</form>
   	 <!-- footer -->
-	 <footer class="text-center text-white fixed-bottom">
+	 <footer class="text-center fixed-bottom">
 		  <!-- Grid container -->
 		  <div class="container"></div>
 		  <!-- Grid container -->
 		
 		  <!-- Copyright -->
-		  <div class="text-center p-3 bg-info">
+		  <div class="text-center p-3 bg-light">
 		    © 2023 Copyright: Kelompok 7
 		  </div>
 		  <!-- Copyright -->
 	  </footer>
 </body>
+
+<script type="text/javascript">
+	$("#submit").click(function(){
+		var provider = $("#providerOption").val();
+		var paket = $("#paketOption").val();
+		var harga = $("#hargaText").val();
+		var norek = $("#norek").val();
+		var notelp = $("notelp").val();
+		$("#namaProvider").empty().append(provider);
+		$("#jenisPaket").empty().append(paket);
+		$("#hargaPaket").empty().append(harga);
+		$("#noRekPembeli").empty().append(norek);
+		$("#noTelp").empty().append(notelp);
+		$("#invoicePaket").modal("show");
+	});
+</script>
+
+<script type="text/javascript">
+	$("#save").click(function(){
+		var providerr = document.getElementById("namaProvider").value;
+		var pakett = document.getElementById("jenisPaket").value;
+		var hargaa = document.getElementById("hargaPaket").value;
+		var noRekk = document.getElementById("noRekPembeli").value;
+		var noTelpp = document.getElementById("noTelp").value;
+		$.ajax({
+			url: '/operator/paketdata/save',
+			type: 'POST',
+			data : {'namaProvider' : providerr, 'jenisPaket' : pakett, 'harga' : hargaa, 'noRek' : noRekk, 'phoneNum': noTelpp},
+			success: function(String){
+				alert("success");
+			}
+		})
+	});
+</script>
 </html>
+

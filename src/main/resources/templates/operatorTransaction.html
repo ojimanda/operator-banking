@@ -40,6 +40,19 @@
       <li class="nav-item active">
         <a class="nav-link" href="/operator/transaction">Transaction <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+            Product
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/operator/paketdata">Paket Data</a></li>
+            <li><a class="dropdown-item" href="/operator/tiketpesawat">Tiket Pesawat</a></li>
+            <li><a class="dropdown-item" href="/operator/bayartagihan">Bayar Tagihan</a></li>
+          </ul>
+        </li>
+       <li class="nav-item">
+        <a class="nav-link" href="#">Commerce</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="javascript: document.logoutForm.submit()">Log Out</a>
         <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
