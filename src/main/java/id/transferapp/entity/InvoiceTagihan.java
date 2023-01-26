@@ -16,7 +16,7 @@ public class InvoiceTagihan {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String tagihan;
+	private String jenisTagihan;
 	
 	private String noPelanggan;
 	
