@@ -84,13 +84,14 @@ public class PaketDataController {
 		List<PaketData> listPaket = this.paketDataService.getAllPaketData();
 		List<ProviderCard> listProvider = providerCardService.getAllProvider();
 		if (bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("fail", "Gagal Membeli Paket");
 			model.addAttribute("listPaket", listPaket);
 			model.addAttribute("providers", listProvider);
 			return "paketdata";
 		} else {
 			invoicePaketDataService.save(paketData);
-			redirectAttributes.addFlashAttribute("Success", "Success inserted ticket");
-			return "redirect:/operator";
+			redirectAttributes.addFlashAttribute("success", "Paket Berhasil Dibeli");
+			return "redirect:/operator/paketdata";
 		}
 
 	}
