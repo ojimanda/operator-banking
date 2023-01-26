@@ -107,7 +107,7 @@
 					<label class="control-label" >Harga : </label>
 				</div>
 				<div class="col-sm-6">
-					<label class="control-label" id="hargaTiket" ></label>
+					<label class="control-label" id="hargaTiketModal" ></label>
 				</div>
 				</div>
 				<div class="form-group row">
@@ -140,39 +140,44 @@
 </div>
 	
 	<!-- form pembelian -->
-	<form>
+	<form method="post" th:action="@{/operator/tiketpesawat}" th:object="${tiket}">
 	<div class="container">
 	<div class="row d-flex justify-content-center my-5 py-4">
 	<div class="col-10">
 	<div class="form-group">
+	<div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+	<div class="alert alert-danger" role="alert" th:text="${fail}" th:if="${fail}"></div>
       <label for="inputState">Destinasi</label>
-      <select id="tiketOption" class="form-control">
-        <option th:each="tikets : ${tiket}"
-        th:text="${tikets.name}"
-        th:value="${tikets.name}"></option>
+      <select id="tiketOption" class="form-control" th:field="*{name}">
+      <option value="0">Pilih Tiket Pesawat </option>
+      <th:block th:each="tiket : ${tikets}"> 
+        <option
+        th:text="${tiket.name}"
+        th:value="${tiket.name}"></option>
+        </th:block>
       </select>
     </div>
     <div class="form-group">
       <label>Tanggal Keberangkatan</label></br>
-	  <input class="form-control" type="date" id="tglTiket">
+	  <input class="form-control" type="date" id="tglTiket" th:field="*{tglBerangkat}">
       </div>
       <div class="form-group">
       <label for="inputState" >Jumlah Tiket</label>
-      <input type="number"class="form-control" id="jumlahTiket">
+      <input type="number"class="form-control" id="jumlahTiket" th:field="*{jumlahTiket}" min=1>
     </div>
     <div class="form-group">
       <label for="inputState" >Harga</label>
-      <input type="text"class="form-control" id="hargaTiket" disabled>
+      <input type="text"class="form-control" id="hargaTiket"  th:field="*{harga}" readonly>
     </div>
     <div class="form-group">
     	<label for="inputState">No Rekening</label>
-    	<input type="text" class="form-control" id="noRek">
+    	<input type="text" class="form-control" id="noRek" th:field="*{noRek}">
     </div>
     <div class="form-group">
     	<label for="inputState">Email</label>
-    	<input type="text" class="form-control" id="email">
+    	<input type="text" class="form-control" id="email" th:field="*{email}">
     </div>
-	<input type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#invoiceTiket" id="submit" value="Pesan"/>
+	<input type="submit" class="btn btn-outline-success"  id="submit" value="Pesan"/>
 	</div>
 	</div>
 	</div>
@@ -192,7 +197,7 @@
 
 </body>
 <script type="text/javascript">
-	$("#submit").click(function(){
+	/* $("#submit").click(function(){
 		var tiket = $("#tiketOption").val();
 		var tgl = $("#tglTiket").val();
 		var jumlah = $("#jumlahTiket").val();
@@ -206,10 +211,28 @@
 		$("#noRekPembeli").empty().append(norek);
 		$("#emailPembeli").empty().append(email);
 		$("#invoiceTiket").modal("show");
-	});
-	const dest = document.getElementById("tiketOption")
-	dest.addEventListener("change", function (e) { 
-		console.log(e.target.value)
+	}); */
+	const dest = document.getElementById("tiketOption");
+	const jumlah = document.getElementById("jumlahTiket");
+	const list = '[[${detailTiket}]]'
+	const datas = JSON.parse(list.replace(/&quot;/g,'"'));
+	const harga = document.getElementById("hargaTiket");
+	var total;
+	dest.addEventListener('change', function (e) { 
+		const getDest = e.target.value;
+		for(data of datas){
+			if(data["name"] == getDest){
+				harga.value = data["price"]
+				total = data["price"]
+				jumlah.value = 1
+			}
+		}
 	 })
+	 
+	 jumlah.addEventListener('change', function (e){
+		 const getJumlah = e.target.value;
+		 harga.value = total * getJumlah;
+	 })
+	 
 </script>
 </html>
