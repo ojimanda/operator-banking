@@ -48,6 +48,7 @@ public class AuthConfig {
 				.requestMatchers("/operator/rekening").hasAnyAuthority("operator")
 				.requestMatchers("/operator/rekening/save").hasAnyAuthority("operator")
 				.requestMatchers("/operator/commerce").hasAnyAuthority("operator")
+				.requestMatchers("/operator/commerce/history").hasAnyAuthority("operator")
 				.requestMatchers("/cs").hasAnyAuthority("cs")
 				.requestMatchers("/cs/transfer").hasAnyAuthority("cs")
 				.requestMatchers("/cs/transfer/save").hasAnyAuthority("cs")
