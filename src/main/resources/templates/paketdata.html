@@ -136,40 +136,41 @@
 
 	
 	<!-- form pembelian -->
-	<form >
+	<form method="post" th:action="@{/operator/paketdata}" th:object="${paket}" >
 	<div class="container">
 	<div class="row d-flex justify-content-center my-5 py-4">
 	<div class="col-10">
 	<div class="form-group">
       <label for="inputState">Provider</label>
-      <select id="providerOption" class="form-control">
+      <select id="providerOption" class="form-control" th:field="*{namaProvider}">
 		<option value="0">Pilih Provider</option>
 		<th:block th:each="prov : ${providers}">
 			<option
 			th:text="${prov.name}"
-			th:value="${prov.id}"></option>
+			th:value="${prov.name}"></option>
 		</th:block>
       </select>
     </div>
 	<div class="form-group">
       <label for="inputState">Paket Data</label>
-      <select id="paketOption" class="form-control">
+      <select id="paketOption" class="form-control" th:field="*{jenisPaket}">
         <option value="0">Pilih Paket Data</option>
       </select>
     </div>
     <div class="form-group">
       <label for="inputState">Harga</label>
-      <input type="text" class="form-control" id="hargaText" disabled>
+      <input type="text" class="form-control" id="hargaText" th:field="*{price}">
     </div>
     <div class="form-group">
       <label for="inputState">No Rekening</label>
-      <input type="text" class="form-control" id="norek">
+      <input type="text" class="form-control" id="norek" th:field="*{noRek}">
     </div>
     <div class="form-group">
       <label for="inputState">No Telpon</label>
-      <input type="text" class="form-control" id="notelp">
+      <input type="text" class="form-control" id="notelp" th:field="*{phoneNum}">
     </div>
-	<input type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#invoicePaket" id="submit" value="Beli"/>
+	<!-- <input type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#invoicePaket" id="submit" value="Beli"/> -->
+	<input type="submit" value="Beli">
 	</div>
 	</div>
 	</div>
@@ -225,10 +226,11 @@
 	const list = '[[${detailPaket}]]'
 	const datas = JSON.parse(list.replace(/&quot;/g,'"'));
 	const harga = document.getElementById("hargaText");
-	provider.addEventListener('change', function (e) { 
+	provider.addEventListener('change', function (e) {
+		paketOpt.innerHTML = "<option value='0'>Pilih Paket Data</option>";
 		const getProvider = e.target.value;
 		for(data of datas) {
-			if(data["providerId"] == getProvider) {
+			if(data["provider"] == getProvider) {
 				const opt = document.createElement("option");
 				opt.innerHTML = data["name"]
 				opt.setAttribute("value", data["name"]);

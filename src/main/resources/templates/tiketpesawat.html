@@ -207,5 +207,9 @@
 		$("#emailPembeli").empty().append(email);
 		$("#invoiceTiket").modal("show");
 	});
+	const dest = document.getElementById("tiketOption")
+	dest.addEventListener("change", function (e) { 
+		console.log(e.target.value)
+	 })
 </script>
 </html>

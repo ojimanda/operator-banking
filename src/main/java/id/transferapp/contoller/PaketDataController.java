@@ -7,7 +7,9 @@ import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,6 +58,7 @@ public class PaketDataController {
 		model.addAttribute("listPaket", listPaket);
 		model.addAttribute("providers", listProvider);
 		model.addAttribute("detailPaket", parent);
+		model.addAttribute("paket", new InvoicepaketData());
 		return "paketdata";
 	}
 
@@ -74,4 +77,21 @@ public class PaketDataController {
 	// this.invoicePaketDataService.save(invoice);
 	// return "redirect:/operator/paketdata";
 	// }
+
+	@PostMapping
+	public String savePaket(@ModelAttribute("paket") InvoicepaketData paketData, RedirectAttributes redirectAttributes,
+			BindingResult bindingResult, Model model) {
+		List<PaketData> listPaket = this.paketDataService.getAllPaketData();
+		List<ProviderCard> listProvider = providerCardService.getAllProvider();
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("listPaket", listPaket);
+			model.addAttribute("providers", listProvider);
+			return "paketdata";
+		} else {
+			invoicePaketDataService.save(paketData);
+			redirectAttributes.addFlashAttribute("Success", "Success inserted ticket");
+			return "redirect:/operator";
+		}
+
+	}
 }
