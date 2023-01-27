@@ -11,5 +11,5 @@ import id.transferapp.entity.Tagihan;
 public interface TagihanRepo extends JpaRepository<Tagihan, Long> {
 
     List<Tagihan> findByJenisTagihan(String jenisTagihan);
-
+    void deleteByNoTagihan(String noTagihan);
 }
