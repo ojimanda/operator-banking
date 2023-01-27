@@ -51,9 +51,15 @@
             <li><a class="dropdown-item" href="/operator/bayartagihan">Bayar Tagihan</a></li>
           </ul>
         </li>
-       <li class="nav-item">
-        <a class="nav-link" href="#">Commerce</a>
-      </li>
+       <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Commerce
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/operator/commerce">List Product</a></li>
+                  <li><a class="dropdown-item" href="/operator/commerce/history">History</a></li>
+                </ul>
+              </li>
       <li class="nav-item">
         <a class="nav-link" href="javascript: document.logoutForm.submit()">Log Out</a>
         <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
