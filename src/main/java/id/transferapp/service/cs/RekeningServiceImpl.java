@@ -40,7 +40,7 @@ public class RekeningServiceImpl implements RekeningService{
 		Rekening rekening = new Rekening();
 		rekening.setNoRek(rek.getNoRek());
 		rekening.setBank(bank);
-		rekening.setSaldo(1000000);
+		rekening.setSaldo(20000000);
 		rekening.setNasabah(rek.getNasabah());
 		this.rekeningRepo.save(rekening);
 	}
