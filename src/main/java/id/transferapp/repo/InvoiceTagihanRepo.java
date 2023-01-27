@@ -6,4 +6,6 @@ import id.transferapp.entity.InvoiceTagihan;
 
 public interface InvoiceTagihanRepo extends JpaRepository<InvoiceTagihan, Long>{
 
+
+
 }
