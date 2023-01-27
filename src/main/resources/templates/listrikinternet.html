@@ -198,22 +198,21 @@ $('#invoiceTagihan').on('show.bs.modal', function(event){
 	const list = '[[${detailTagihan}]]'
 	const datas = JSON.parse(list.replace(/&quot;/g,'"'));
 	for(data of datas){
-		if(data["name"] == jnisTagihan.value){
-			if(data["noTagihan"]== noPelanggan.value){
+		if(data["name"] == jnisTagihan.value && data["noTagihan"]==noPelanggan.value){
 				$("#invoiceTagihanTitle").empty().append("Detail Tagihan")
 				$("#jenisTgh").empty().append(data["name"]);
 				$("#noPel").empty().append(data["noTagihan"]);
 				$("#ttlBayar").empty().append(data["fee"]);
 				$("#invoiceTagihan").modal("show");
 				harga.value = data["fee"];
+				break;
 				
-			}
-			else{
-				$("#invoiceTagihanTitle").empty().append("Tagihan Tidak Ada")
-				$("#jenisTgh").empty();
-				$("#noPel").empty();
-				$("#ttlBayar").empty();
-			}
+		}
+		else{
+			$("#invoiceTagihanTitle").empty().append("Tagihan Tidak Ada")
+			$("#jenisTgh").empty();
+			$("#noPel").empty();
+			$("#ttlBayar").empty();
 		}
 	}
 })
