@@ -53,9 +53,15 @@
             <li><a class="dropdown-item" href="/operator/bayartagihan">Bayar Tagihan</a></li>
           </ul>
         </li>
-       <li class="nav-item">
-        <a class="nav-link" href="#">Commerce</a>
-      </li>
+       <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Commerce
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/operator/commerce">List Product </a></li>
+                  <li><a class="dropdown-item" href="/operator/commerce/history">History</a></li>
+                </ul>
+              </li>
       <li class="nav-item">
         <a class="nav-link" href="javascript: document.logoutForm.submit()">Log Out</a>
         <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
@@ -144,7 +150,7 @@
 	<div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
 	<div class="alert alert-danger" role="alert" th:text="${fail}" th:if="${fail}"></div>
       <label for="inputState">Provider</label>
-      <select id="providerOption" class="form-control" th:field="*{namaProvider}">
+      <select id="providerOption" class="form-control" th:field="*{namaProvider}" required>
 		<option value="0">Pilih Provider</option>
 		<th:block th:each="prov : ${providers}">
 			<option
@@ -155,7 +161,7 @@
     </div>
 	<div class="form-group">
       <label for="inputState">Paket Data</label>
-      <select id="paketOption" class="form-control" th:field="*{jenisPaket}">
+      <select id="paketOption" class="form-control" th:field="*{jenisPaket}" required>
         <option value="0">Pilih Paket Data</option>
       </select>
     </div>
@@ -165,11 +171,11 @@
     </div>
     <div class="form-group">
       <label for="inputState">No Rekening</label>
-      <input type="text" class="form-control" id="norek" th:field="*{noRek}">
+      <input type="text" class="form-control" id="norek" th:field="*{noRek}" required>
     </div>
     <div class="form-group">
       <label for="inputState">No Telpon</label>
-      <input type="text" class="form-control" id="notelp" th:field="*{phoneNum}">
+      <input type="text" class="form-control" id="notelp" th:field="*{phoneNum}" required>
     </div>
 	<!-- <input type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#invoicePaket" id="submit" value="Beli"/> -->
 	<input type="submit" value="Beli">

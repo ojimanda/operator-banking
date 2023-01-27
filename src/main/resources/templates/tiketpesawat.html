@@ -51,9 +51,15 @@
             <li><a class="dropdown-item" href="/operator/bayartagihan">Bayar Tagihan</a></li>
           </ul>
         </li>
-       <li class="nav-item">
-        <a class="nav-link" href="#">Commerce</a>
-      </li>
+       <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Commerce
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item " href="/operator/commerce">List Product</a></li>
+                  <li><a class="dropdown-item" href="/operator/commerce/history">History</a></li>
+                </ul>
+              </li>
       <li class="nav-item">
         <a class="nav-link" href="javascript: document.logoutForm.submit()">Log Out</a>
         <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
@@ -148,7 +154,7 @@
 	<div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
 	<div class="alert alert-danger" role="alert" th:text="${fail}" th:if="${fail}"></div>
       <label for="inputState">Destinasi</label>
-      <select id="tiketOption" class="form-control" th:field="*{name}">
+      <select id="tiketOption" class="form-control" th:field="*{name}" required>
       <option value="0">Pilih Tiket Pesawat </option>
       <th:block th:each="tiket : ${tikets}"> 
         <option
@@ -159,11 +165,11 @@
     </div>
     <div class="form-group">
       <label>Tanggal Keberangkatan</label></br>
-	  <input class="form-control" type="date" id="tglTiket" th:field="*{tglBerangkat}">
+	  <input class="form-control" type="date" id="tglTiket" th:field="*{tglBerangkat}" required>
       </div>
       <div class="form-group">
       <label for="inputState" >Jumlah Tiket</label>
-      <input type="number"class="form-control" id="jumlahTiket" th:field="*{jumlahTiket}" min=1>
+      <input type="number"class="form-control" id="jumlahTiket" th:field="*{jumlahTiket}" min=1 required>
     </div>
     <div class="form-group">
       <label for="inputState" >Harga</label>
@@ -171,11 +177,11 @@
     </div>
     <div class="form-group">
     	<label for="inputState">No Rekening</label>
-    	<input type="text" class="form-control" id="noRek" th:field="*{noRek}">
+    	<input type="text" class="form-control" id="noRek" th:field="*{noRek}" required>
     </div>
     <div class="form-group">
     	<label for="inputState">Email</label>
-    	<input type="text" class="form-control" id="email" th:field="*{email}">
+    	<input type="text" class="form-control" id="email" th:field="*{email}" required>
     </div>
 	<input type="submit" class="btn btn-outline-success"  id="submit" value="Pesan"/>
 	</div>
@@ -219,6 +225,5 @@
 		 harga.value = total * getJumlah;
 	 })
 	 
-	});
 </script>
 </html>
