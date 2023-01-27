@@ -236,6 +236,7 @@
 	const harga = document.getElementById("hargaText");
 	provider.addEventListener('change', function (e) {
 		paketOpt.innerHTML = "<option value='0'>Pilih Paket Data</option>";
+		harga.value = "";
 		const getProvider = e.target.value;
 		for(data of datas) {
 			if(data["provider"] == getProvider) {
